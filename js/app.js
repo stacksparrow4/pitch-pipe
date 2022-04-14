@@ -33,7 +33,7 @@ function getLetter(){
 }
 
 function freqToVolume(x){
-	return 1.6 * 2 ** (- x * 0.0090909);
+	return Math.min(10 * 2 ** (- x * 0.0151), 1);
 }
 
 function updateText(){
