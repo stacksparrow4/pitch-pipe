@@ -74,11 +74,11 @@ function bindEvents() {
     		} else {
     			osc.stop();
     			
-    			n--;
-    			updateText();
+    			//n--;
+    			//updateText();
     		}
     		
-    		inpBut.style.backgroundColor = "rgba(0,0,0," + (noteOn ? "0.2" : "0") + ")";
+    		inpBut.style.backgroundColor = "rgba(0,0,0," + (noteOn ? "0" : "0.2") + ")";
         },
         false);
 
