@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/SpinningArrow" version="1.0.0" viewmodes="maximized">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://stacksparrow4.com/pitch-pipe" version="1.0.0" viewmodes="maximized">
     <tizen:application id="GrFXkHOqz3.SpinningArrow" package="GrFXkHOqz3" required_version="2.3"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
-    <icon src="icon.png"/>
-    <name>SpinningArrow</name>
+    <icon src="icon.jpg"/>
+    <name>Pitch Pipe</name>
     <tizen:profile name="wearable"/>
 </widget>

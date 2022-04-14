@@ -36,7 +36,6 @@ function updateText(){
 }
 
 function bindEvents() {
-    // Handle hardware back key event
     document.addEventListener('tizenhwkey', function(e) {
         if (e.keyName === 'back') {
             try {
@@ -44,11 +43,11 @@ function bindEvents() {
             } catch (ignore) {}
         }
     });
+    
+    var inpBut = document.getElementById('direction-button');
 
-    // Handle click event of direction-button element
-    document.getElementById('direction-button').addEventListener('click',
+    inpBut.addEventListener('click',
         function() {
-            //rotateArrow("CW");
     		noteOn = !noteOn;
     		if(noteOn) {
     			var ctxClass = window.audioContext || window.AudioContext || window.AudioContext || window.webkitAudioContext;
@@ -68,6 +67,8 @@ function bindEvents() {
     			//n--;
     			//updateText();
     		}
+    		
+    		inpBut.style.backgroundColor = "rgba(0,0,0," + (noteOn ? "0.2" : "0") + ")";
         },
         false);
 
