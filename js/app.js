@@ -45,25 +45,44 @@ function bindEvents() {
     });
     
     var inpBut = document.getElementById('direction-button');
+    
+    var decayInterval = null;
+    var volumeControl = null;
 
     inpBut.addEventListener('click',
         function() {
     		noteOn = !noteOn;
     		if(noteOn) {
+    			if(decayInterval !== null){
+	    			osc.stop();
+    				clearInterval(decayInterval);
+    			}
+    			
     			var ctxClass = window.audioContext || window.AudioContext || window.AudioContext || window.webkitAudioContext;
     			var ctx = new ctxClass();
     			osc = ctx.createOscillator();
     			osc.type = 'sine';
-    			var volume = ctx.createGain();
-    			osc.connect(volume);
-    			volume.connect(ctx.destination);
-    			volume.gain.value = 0.1;
+    			volumeControl = ctx.createGain();
+    			osc.connect(volumeControl);
+    			volumeControl.connect(ctx.destination);
+    			volumeControl.gain.value = 0.1;
     			
     			osc.frequency.value = 440 * (2 ** (1/12)) ** n;
     			
     			osc.start();
     		} else {
-    			osc.stop();
+    			decayInterval = setInterval(function() {
+    				volumeControl.gain.value -= 0.01;
+    				
+    				console.log('hi');
+    				
+    				if(volumeControl.gain.value <= 0) {
+    	    			osc.stop();
+    	    			clearInterval(decayInterval);
+    	    			decayInterval = null;
+    				}
+    			}, 50);
+    			
     			//n--;
     			//updateText();
     		}
