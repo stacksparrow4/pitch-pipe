@@ -46,6 +46,7 @@ function bindEvents() {
     document.addEventListener('tizenhwkey', function(e) {
         if (e.keyName === 'back') {
             try {
+            	tizen.power.release('SCREEN');
                 tizen.application.getCurrentApplication().exit();
             } catch (ignore) {}
         }
@@ -107,5 +108,7 @@ function init() {
 var noteOn = false;
 var osc;
 
+
+tizen.power.request("SCREEN", "SCREEN_NORMAL");
 
 window.onload = init;

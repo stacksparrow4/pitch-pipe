@@ -6,4 +6,5 @@
     <icon src="icon.jpg"/>
     <name>Pitch Pipe</name>
     <tizen:profile name="wearable"/>
+    <tizen:privilege name="http://tizen.org/privilege/power"/>
 </widget>
