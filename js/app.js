@@ -1,5 +1,8 @@
 var n = 0;
 
+
+var inpBut = document.getElementById('input-button');
+
 function getLetter(){
 	switch(((n % 12) + 12) % 12) {
 	case 0:
@@ -30,13 +33,13 @@ function getLetter(){
 }
 
 function freqToVolume(x){
-	return 0.2 * 2 ** (1 - x / 220);
+	return 1.6 * 2 ** (- x * 0.0090909);
 }
 
 function updateText(){
 	var num_at_end = Math.floor((n - 3) / 12) + 5;
 	
-	document.getElementById('direction-button').innerText = getLetter() + num_at_end.toString();
+	inpBut.innerText = getLetter() + num_at_end.toString();
 }
 
 function bindEvents() {
@@ -47,8 +50,6 @@ function bindEvents() {
             } catch (ignore) {}
         }
     });
-    
-    var inpBut = document.getElementById('direction-button');
     
     var decayInterval = null;
     var volumeControl = null;
@@ -73,6 +74,8 @@ function bindEvents() {
     			osc.frequency.value = 440 * (2 ** (1/12)) ** n;
     			volumeControl.gain.value = freqToVolume(osc.frequency.value);
     			
+    			//console.log(volumeControl.gain.value);
+    			
     			osc.start();
     		} else {
     			decayInterval = setInterval(function() {
@@ -83,7 +86,7 @@ function bindEvents() {
     	    			clearInterval(decayInterval);
     	    			decayInterval = null;
     				}
-    			}, 50);
+    			}, 30);
     			
     			//n--;
     			//updateText();
