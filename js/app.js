@@ -29,6 +29,10 @@ function getLetter(){
 	}
 }
 
+function freqToVolume(x){
+	return 0.2 * 2 ** (1 - x / 220);
+}
+
 function updateText(){
 	var num_at_end = Math.floor((n - 3) / 12) + 5;
 	
@@ -65,16 +69,14 @@ function bindEvents() {
     			volumeControl = ctx.createGain();
     			osc.connect(volumeControl);
     			volumeControl.connect(ctx.destination);
-    			volumeControl.gain.value = 0.1;
     			
     			osc.frequency.value = 440 * (2 ** (1/12)) ** n;
+    			volumeControl.gain.value = freqToVolume(osc.frequency.value);
     			
     			osc.start();
     		} else {
     			decayInterval = setInterval(function() {
     				volumeControl.gain.value -= 0.01;
-    				
-    				console.log('hi');
     				
     				if(volumeControl.gain.value <= 0) {
     	    			osc.stop();
