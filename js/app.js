@@ -33,7 +33,7 @@ function getLetter(){
 }
 
 function freqToVolume(x){
-	return Math.min(10 * 2 ** (- x * 0.0151), 1);
+	return Math.min(0.4 * 2 ** (- x * 0.00454545), 1);
 }
 
 function updateText(){
@@ -51,18 +51,12 @@ function bindEvents() {
         }
     });
     
-    var decayInterval = null;
     var volumeControl = null;
 
     inpBut.addEventListener('click',
         function() {
     		noteOn = !noteOn;
     		if(noteOn) {
-    			if(decayInterval !== null){
-	    			osc.stop();
-    				clearInterval(decayInterval);
-    			}
-    			
     			var ctxClass = window.audioContext || window.AudioContext || window.AudioContext || window.webkitAudioContext;
     			var ctx = new ctxClass();
     			osc = ctx.createOscillator();
@@ -78,18 +72,10 @@ function bindEvents() {
     			
     			osc.start();
     		} else {
-    			decayInterval = setInterval(function() {
-    				volumeControl.gain.value -= 0.01;
-    				
-    				if(volumeControl.gain.value <= 0) {
-    	    			osc.stop();
-    	    			clearInterval(decayInterval);
-    	    			decayInterval = null;
-    				}
-    			}, 30);
+    			osc.stop();
     			
-    			//n--;
-    			//updateText();
+    			n--;
+    			updateText();
     		}
     		
     		inpBut.style.backgroundColor = "rgba(0,0,0," + (noteOn ? "0.2" : "0") + ")";
